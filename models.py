@@ -19,11 +19,11 @@ class Animal(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String)
     habitat = Column(String)
-    logs = relationship("Logbook", back_populates="animal")
+    logs = relationship("Logbook", back_populates="animal", cascade=("all, delete, delete-orphan"))
 
     def __repr__(self):
         return f"""
-        \Animal {self.id}\r
+        \nAnimal {self.id}\r
         Name = {self.name}\r
         Habitat = {self.habitat}
         """
@@ -43,3 +43,6 @@ class Logbook(Base):
         Animal ID = {self.animal_id}\r
         Notes = {self.notes}
         """
+
+if __name__ == "__main__":
+    Base.metadata.create_all(engine)
